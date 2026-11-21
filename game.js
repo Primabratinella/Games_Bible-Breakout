@@ -276,8 +276,6 @@ function chooseQuestion(category) {
     (selectedDifficulty === "Mixed" || item.difficulty === selectedDifficulty)
   );
 
-  // Fall back to any question in the category if that difficulty
-  // doesn't have a question yet.
   if (!pool.length) {
     pool = QUESTIONS.filter(item => item.category === category);
   }
