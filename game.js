@@ -10,8 +10,6 @@ const CATEGORIES = [
 const COLORS = ["#FF1744", "#FFD000", "#168BFF", "#00C853"];
 const ROUND_SECONDS = 26;
 
-// Edit or add questions here. Keep question text paraphrased;
-// references and source links let players look up the passage.
 const QUESTIONS = [
   {
     category: "Bible Trivia", difficulty: "Easy",
@@ -131,6 +129,7 @@ const roundContent = document.querySelector("#roundContent");
 const answerBox = document.querySelector("#answerBox");
 const teamsElement = document.querySelector("#teams");
 const teamCountSelect = document.querySelector("#teamCount");
+const difficultySelect = document.querySelector("#difficultySelect");
 const countdownOverlay = document.querySelector("#countdownOverlay");
 const countdownNumber = document.querySelector("#countdownNumber");
 const wheelHint = document.querySelector("#wheelHint");
@@ -270,8 +269,18 @@ function escapeHtml(value) {
 }
 
 function chooseQuestion(category) {
-  let pool = QUESTIONS.filter(item => item.category === category);
-  if (!pool.length) pool = QUESTIONS;
+  const selectedDifficulty = difficultySelect.value;
+
+  let pool = QUESTIONS.filter(item =>
+    item.category === category &&
+    (selectedDifficulty === "Mixed" || item.difficulty === selectedDifficulty)
+  );
+
+  // Fall back to any question in the category if that difficulty
+  // doesn't have a question yet.
+  if (!pool.length) {
+    pool = QUESTIONS.filter(item => item.category === category);
+  }
 
   let index;
   do {
@@ -281,6 +290,7 @@ function chooseQuestion(category) {
   lastQuestionIndex = index;
   return pool[index];
 }
+
 
 function spinWheel() {
   if (spinning || roundOpen) return;
