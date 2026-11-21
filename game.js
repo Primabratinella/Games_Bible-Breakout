@@ -7,7 +7,7 @@ const CATEGORIES = [
   "Name That Verse"
 ];
 
-const COLORS = ["#ff6685", "#59b8f5", "#ffd54f", "#54d6b2"];
+const COLORS = ["#FF1744", "#FFD000", "#168BFF", "#00C853"];
 const ROUND_SECONDS = 26;
 
 // Edit or add questions here. Keep question text paraphrased;
