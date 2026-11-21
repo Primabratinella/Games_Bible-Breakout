@@ -354,19 +354,25 @@ function showQuestion() {
   answerBox.hidden = true;
   answerBox.textContent = "";
 
+  const showReference = currentQuestion.category !== "Name That Verse";
+
+  const referenceLine = showReference
+    ? `<p class="source-line">
+         Reference: <strong>${escapeHtml(currentQuestion.reference)}</strong>
+         · Source:
+         <a href="${escapeHtml(currentQuestion.url)}" target="_blank" rel="noopener noreferrer">
+           ${escapeHtml(currentQuestion.source)}
+         </a>
+       </p>`
+    : "";
+
   roundContent.innerHTML = `
     <h1>${escapeHtml(currentQuestion.question)}</h1>
     <div class="question-meta">
       <span class="meta-chip">${escapeHtml(currentQuestion.difficulty)} difficulty</span>
       <span class="meta-chip">Team: ${escapeHtml(teams[activeTeam].name || `Team ${activeTeam + 1}`)}</span>
     </div>
-    <p class="source-line">
-      Reference: <strong>${escapeHtml(currentQuestion.reference)}</strong>
-      · Source:
-      <a href="${escapeHtml(currentQuestion.url)}" target="_blank" rel="noopener noreferrer">
-        ${escapeHtml(currentQuestion.source)}
-      </a>
-    </p>
+    ${referenceLine}
   `;
 
   revealButton.disabled = false;
@@ -393,10 +399,22 @@ function startTimer() {
 
 function revealAnswer() {
   if (!currentQuestion) return;
-  answerBox.innerHTML = `<strong>Answer</strong>${escapeHtml(currentQuestion.answer)}`;
+
+  answerBox.innerHTML = `
+    <strong>Answer</strong>
+    ${escapeHtml(currentQuestion.answer)}
+    <p class="source-line">
+      Reference: <strong>${escapeHtml(currentQuestion.reference)}</strong>
+      · Source:
+      <a href="${escapeHtml(currentQuestion.url)}" target="_blank" rel="noopener noreferrer">
+        ${escapeHtml(currentQuestion.source)}
+      </a>
+    </p>
+  `;
   answerBox.hidden = false;
   finishRound();
 }
+
 
 function finishRound() {
   clearInterval(timerId);
