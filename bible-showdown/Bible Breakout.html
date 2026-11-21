@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff9e9">
+  <title>Bible Breakout — Breakout Games</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/game.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Bible Breakout home">
+      <span class="brand-mark" aria-hidden="true">✦</span>
+      <span>Bible <strong>Breakout</strong></span>
+    </a>
+
+    <div class="top-actions">
+      <button class="button button-light" id="tvModeButton" type="button"
+        aria-pressed="false">📺 TV mode</button>
+      <button class="button button-light" id="fullscreenButton" type="button">
+        ⛶ Fullscreen
+      </button>
+    </div>
+  </header>
+
+  <main class="game-shell">
+    <section class="scoreboard panel" aria-labelledby="score-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Play together</p>
+          <h2 id="score-title">Team scores</h2>
+        </div>
+        <label class="team-control">
+          <span class="sr-only">Number of teams</span>
+          <select id="teamCount" aria-label="Number of teams">
+            <option value="2">2 teams</option>
+            <option value="3">3 teams</option>
+            <option value="4">4 teams</option>
+          </select>
+        </label>
+      </div>
+      <div class="teams" id="teams"></div>
+    </section>
+
+    <section class="play-area">
+      <section class="wheel-panel panel" aria-label="Category spinner">
+        <div class="wheel-wrap">
+          <div class="wheel-pointer" aria-hidden="true"></div>
+          <canvas id="wheel" width="900" height="900"
+            aria-label="Spinning category wheel"></canvas>
+        </div>
+        <button class="button button-primary spin-button" id="spinButton" type="button">
+          🎡 Spin the wheel
+        </button>
+        <p class="wheel-hint" id="wheelHint">Ready when you are!</p>
+      </section>
+
+      <section class="round-panel panel" aria-live="polite">
+        <div class="round-topline">
+          <span class="round-badge" id="categoryBadge">Your next challenge</span>
+          <span class="timer" id="timer" aria-label="26 seconds remaining">26</span>
+        </div>
+
+        <div class="round-content" id="roundContent">
+          <div class="welcome-icon" aria-hidden="true">📖</div>
+          <h1>Ready to break out?</h1>
+          <p>Spin the wheel to get a Bible challenge. Choose a team, then race the 26-second timer!</p>
+        </div>
+
+        <div class="answer-box" id="answerBox" hidden></div>
+
+        <div class="round-controls">
+          <button class="button button-secondary" id="revealButton" type="button" disabled>
+            👀 Reveal answer
+          </button>
+          <button class="button button-primary" id="correctButton" type="button" disabled>
+            ⭐ Award point
+          </button>
+          <button class="button button-light" id="nextButton" type="button" disabled>
+            Next round →
+          </button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div class="countdown-overlay" id="countdownOverlay" hidden aria-live="assertive">
+    <span class="countdown-label">Get ready!</span>
+    <strong id="countdownNumber">3</strong>
+  </div>
+
+  <footer class="footer">
+    <span>Made for joyful learning · <strong>Breakout Games</strong></span>
+    <span>Scripture references: <a href="https://www.biblegateway.com/" target="_blank" rel="noopener noreferrer">BibleGateway</a>
+      · Background study: <a href="https://bibleproject.com/" target="_blank" rel="noopener noreferrer">BibleProject</a></span>
+  </footer>
+</body>
+</html>
