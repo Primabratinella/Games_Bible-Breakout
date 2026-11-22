@@ -1,0 +1,338 @@
+:root {
+  --red: #ff1744;
+  --yellow: #ffd000;
+  --blue: #168bff;
+  --green: #00c853;
+  --ink: #17324d;
+  --paper: #f3faff;
+  --white: #fff;
+  --shadow: 0 8px 24px #17324d1a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: "Trebuchet MS", Arial, sans-serif;
+}
+
+button { font: inherit; }
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem clamp(1rem, 4vw, 3rem);
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+.game-layout {
+  width: min(1250px, 100%);
+  margin: 0 auto;
+  padding: clamp(1rem, 3vw, 2rem);
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(320px, 1.1fr);
+  gap: 1.5rem;
+}
+
+.panel {
+  background: var(--white);
+  border-radius: 24px;
+  padding: clamp(1rem, 2.5vw, 2rem);
+  box-shadow: var(--shadow);
+}
+
+.wheel-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.wheel-wrap {
+  position: relative;
+  width: min(100%, 520px);
+  aspect-ratio: 1;
+}
+
+#wheel {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.pointer {
+  position: absolute;
+  z-index: 2;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 22px solid transparent;
+  border-right: 22px solid transparent;
+  border-top: 42px solid var(--ink);
+  filter: drop-shadow(0 3px 2px #0003);
+}
+
+.button {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.8rem 1.25rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 120ms ease, filter 120ms ease;
+}
+
+.button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+.button:focus-visible {
+  outline: 4px solid #17324d55;
+  outline-offset: 3px;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button-primary {
+  color: var(--white);
+  background: var(--blue);
+}
+
+.button-secondary {
+  color: var(--ink);
+  background: var(--yellow);
+}
+
+.button-dark {
+  color: var(--white);
+  background: var(--ink);
+}
+
+#spinButton {
+  margin-top: 1rem;
+  font-size: 1.15rem;
+}
+
+.status {
+  min-height: 1.5em;
+  text-align: center;
+  font-weight: 700;
+}
+
+.game-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.category-badge {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0.55rem 0.9rem;
+  color: var(--white);
+  background: var(--green);
+  font-weight: 800;
+}
+
+.timer {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border: 4px solid var(--yellow);
+  border-radius: 50%;
+  font-size: 1.4rem;
+  font-weight: 900;
+}
+
+.timer.urgent {
+  color: var(--white);
+  border-color: var(--red);
+  background: var(--red);
+}
+
+.question-card {
+  min-height: 190px;
+  margin: 1.25rem 0;
+  padding: clamp(1rem, 3vw, 1.7rem);
+  border-radius: 20px;
+  background: #edf7ff;
+}
+
+.question-type {
+  margin: 0 0 0.5rem;
+  color: #3673a8;
+  font-weight: 800;
+}
+
+.question-card h2 {
+  margin: 0;
+  font-size: clamp(1.25rem, 2.5vw, 1.8rem);
+  line-height: 1.35;
+}
+
+.reference, .source {
+  margin: 0.8rem 0 0;
+  font-size: 0.9rem;
+}
+
+.reference { font-weight: 800; }
+
+.source a {
+  color: #1264ae;
+  overflow-wrap: anywhere;
+}
+
+.answer {
+  padding: 1rem;
+  border-left: 6px solid var(--green);
+  border-radius: 8px;
+  background: #eafff2;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.game-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.scoreboard {
+  margin-top: 1.5rem;
+}
+
+.scoreboard h2 {
+  margin-bottom: 0.75rem;
+  font-size: 1.15rem;
+}
+
+.teams {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.team {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border: 2px solid #e4eef6;
+  border-radius: 14px;
+}
+
+.team input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  border-bottom: 1px dashed #8ca7bd;
+  padding: 0.3rem;
+  color: var(--ink);
+  font-weight: 800;
+  background: transparent;
+}
+
+.team-score {
+  font-size: 1.25rem;
+  font-weight: 900;
+}
+
+.score-buttons {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.score-buttons button {
+  flex: 1;
+  border: 0;
+  border-radius: 8px;
+  padding: 0.4rem;
+  color: var(--ink);
+  background: #eaf3fb;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.countdown {
+  position: fixed;
+  z-index: 10;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--white);
+  background: #102a43dd;
+  font-size: clamp(7rem, 30vw, 18rem);
+  font-weight: 900;
+}
+
+.countdown[hidden] { display: none; }
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem clamp(1rem, 4vw, 3rem);
+  color: #567188;
+  font-size: 0.9rem;
+}
+
+footer span:first-child {
+  color: var(--ink);
+  font-weight: 900;
+}
+
+body.tv-mode .topbar,
+body.tv-mode .scoreboard,
+body.tv-mode #spinButton,
+body.tv-mode .status {
+  display: none;
+}
+
+body.tv-mode .game-layout {
+  width: 100%;
+  max-width: 1800px;
+  min-height: calc(100vh - 55px);
+  grid-template-columns: minmax(320px, 0.95fr) minmax(420px, 1.3fr);
+  gap: 2rem;
+  align-items: center;
+}
+
+body.tv-mode .wheel-wrap { width: min(100%, 700px); }
+body.tv-mode .question-card h2 { font-size: clamp(2rem, 4vw, 4rem); }
+body.tv-mode .category-badge { font-size: 1.35rem; }
+body.tv-mode .timer { width: 80px; height: 80px; font-size: 2rem; }
+body.tv-mode footer { justify-content: center; }
+
+@media (max-width: 760px) {
+  .game-layout { grid-template-columns: 1fr; }
+  .wheel-wrap { width: min(100%, 390px); }
+  .panel { border-radius: 18px; }
+  footer { flex-direction: column; align-items: center; text-align: center; }
+  body.tv-mode .game-layout { grid-template-columns: 1fr; }
+  body.tv-mode .wheel-wrap { width: min(75vw, 440px); }
+}
+
+@media (max-width: 380px) {
+  .teams { grid-template-columns: 1fr; }
+  .game-buttons .button { flex: 1; }
+}

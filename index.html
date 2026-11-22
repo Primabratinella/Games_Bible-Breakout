@@ -3,108 +3,66 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fff9e9">
-  <title>Bible Breakout — Breakout Games</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="game.js" defer></script>
+  <title>Bible Trivia — Breakout Games</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="#" aria-label="Bible Breakout home">
-      <span class="brand-mark" aria-hidden="true">✦</span>
-      <span>Bible <strong>Breakout</strong></span>
-    </a>
-
-    <div class="top-actions">
-      <button class="button button-light" id="tvModeButton" type="button"
-        aria-pressed="false">📺 TV mode</button>
-      <button class="button button-light" id="fullscreenButton" type="button">
-        ⛶ Fullscreen
-      </button>
-    </div>
+    <h1>📖 Bible Trivia</h1>
+    <button id="tvToggle" class="button button-dark" type="button" aria-pressed="false">
+      TV Mode
+    </button>
   </header>
 
-  <main class="game-shell">
-    <section class="scoreboard panel" aria-labelledby="score-title">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">Play together</p>
-          <h2 id="score-title">Team scores</h2>
-        </div>
-        <label class="team-control">
-          <span class="sr-only">Number of teams</span>
-          <select id="teamCount" aria-label="Number of teams">
-            <option value="2">2 teams</option>
-            <option value="3">3 teams</option>
-            <option value="4">4 teams</option>
-          </select>
-        </label>
-        
-        <label class="team-control">
-          <span class="sr-only">Question difficulty</span>
-          <select id="difficultySelect" aria-label="Question difficulty">
-            <option value="Mixed">Mixed difficulty</option>
-            <option value="Easy">Easy</option>
-            <option value="Medium">Medium</option>
-            <option value="Hard">Hard</option>
-          </select>
-        </label>
-
+  <main class="game-layout">
+    <section class="wheel-panel panel" aria-label="Game wheel">
+      <div class="wheel-wrap">
+        <div class="pointer" aria-hidden="true"></div>
+        <canvas id="wheel" width="900" height="900" aria-label="Category wheel"></canvas>
       </div>
-      <div class="teams" id="teams"></div>
+      <button id="spinButton" class="button button-primary" type="button">Spin the Wheel!</button>
+      <p id="status" class="status" aria-live="polite">Spin to get a question.</p>
     </section>
 
-    <section class="play-area">
-      <section class="wheel-panel panel" aria-label="Category spinner">
-        <div class="wheel-wrap">
-          <div class="wheel-pointer" aria-hidden="true"></div>
-          <canvas id="wheel" width="900" height="900"
-            aria-label="Spinning category wheel"></canvas>
-        </div>
-        <button class="button button-primary spin-button" id="spinButton" type="button">
-          🎡 Spin the wheel
-        </button>
-        <p class="wheel-hint" id="wheelHint">Ready when you are!</p>
-      </section>
+    <section class="play-panel panel">
+      <div class="game-info">
+        <div id="categoryBadge" class="category-badge">Ready to play</div>
+        <div id="timer" class="timer" aria-label="26 seconds remaining">26</div>
+      </div>
 
-      <section class="round-panel panel" aria-live="polite">
-        <div class="round-topline">
-          <span class="round-badge" id="categoryBadge">Your next challenge</span>
-          <span class="timer" id="timer" aria-label="26 seconds remaining">26</span>
-        </div>
+      <div id="countdown" class="countdown" aria-live="assertive" hidden></div>
 
-        <div class="round-content" id="roundContent">
-          <div class="welcome-icon" aria-hidden="true">📖</div>
-          <h1>Ready to break out?</h1>
-          <p>Spin the wheel to get a Bible challenge. Choose a team, then race the 26-second timer!</p>
-        </div>
+      <div class="question-card">
+        <p id="questionType" class="question-type">Bible Trivia</p>
+        <h2 id="question">Spin the wheel to begin!</h2>
+        <p id="questionReference" class="reference" hidden></p>
+        <p id="questionSource" class="source" hidden></p>
+      </div>
 
-        <div class="answer-box" id="answerBox" hidden></div>
-
-        <div class="round-controls">
-          <button class="button button-secondary" id="revealButton" type="button" disabled>
-            👀 Reveal answer
+      <div class="answer-area">
+        <p id="answer" class="answer" hidden></p>
+        <div class="game-buttons">
+          <button id="revealButton" class="button button-secondary" type="button" disabled>
+            Reveal Answer
           </button>
-          <button class="button button-primary" id="correctButton" type="button" disabled>
-            ⭐ Award point
-          </button>
-          <button class="button button-light" id="nextButton" type="button" disabled>
-            Next round →
+          <button id="nextButton" class="button button-primary" type="button" disabled>
+            Next Question
           </button>
         </div>
+      </div>
+
+      <section class="scoreboard" aria-label="Team scoreboard">
+        <h2>🏆 Teams</h2>
+        <div id="teams" class="teams"></div>
       </section>
     </section>
   </main>
 
-  <div class="countdown-overlay" id="countdownOverlay" hidden aria-live="assertive">
-    <span class="countdown-label">Get ready!</span>
-    <strong id="countdownNumber">3</strong>
-  </div>
-
-  <footer class="footer">
-    <span>Made for joyful learning · <strong>Breakout Games</strong></span>
-    <span>Scripture references: <a href="https://www.biblegateway.com/" target="_blank" rel="noopener noreferrer">BibleGateway</a>
-      · Background study: <a href="https://bibleproject.com/" target="_blank" rel="noopener noreferrer">BibleProject</a></span>
+  <footer>
+    <span>Breakout Games</span>
+    <span>Question references: BibleGateway · BibleProject</span>
   </footer>
+
+  <script src="js/game.js" defer></script>
 </body>
 </html>
