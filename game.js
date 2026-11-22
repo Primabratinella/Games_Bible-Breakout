@@ -141,7 +141,6 @@ let timeLeft = ROUND_SECONDS;
 let currentQuestion = null;
 let activeTeam = 0;
 let roundOpen = false;
-let lastQuestionIndex = -1;
 let teams = [];
 
 function fitCanvas() {
@@ -268,27 +267,35 @@ function escapeHtml(value) {
   })[char]);
 }
 
+const usedQuestions = new Set();
+
 function chooseQuestion(category) {
   const selectedDifficulty = difficultySelect.value;
 
-  let pool = QUESTIONS.filter(item =>
+  const matchingQuestions = QUESTIONS.filter(item =>
     item.category === category &&
     (selectedDifficulty === "Mixed" || item.difficulty === selectedDifficulty)
   );
 
-  if (!pool.length) {
-    pool = QUESTIONS.filter(item => item.category === category);
+  if (!matchingQuestions.length) {
+    return null;
   }
 
-  let index;
-  do {
-    index = Math.floor(Math.random() * pool.length);
-  } while (pool.length > 1 && index === lastQuestionIndex);
+  let availableQuestions = matchingQuestions.filter(
+    question => !usedQuestions.has(question)
+  );
 
-  lastQuestionIndex = index;
-  return pool[index];
+  if (!availableQuestions.length) {
+    matchingQuestions.forEach(question => usedQuestions.delete(question));
+    availableQuestions = matchingQuestions;
+  }
+
+  const question =
+    availableQuestions[Math.floor(Math.random() * availableQuestions.length)];
+
+  usedQuestions.add(question);
+  return question;
 }
-
 
 function spinWheel() {
   if (spinning || roundOpen) return;
